@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Suara Rakyat</title>
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      padding: 20px;
+    }
+    #login, #content {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+    input {
+      background: #000;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 8px;
+      font-family: monospace;
+      font-size: 16px;
+      width: 200px;
+    }
+    button {
+      background: #0f0;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 10px;
+      font-family: monospace;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #output {
+      white-space: pre-wrap;
+      text-align: left;
+      margin-top: 30px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .cursor {
+      display: inline-block;
+      background: #0f0;
+      width: 8px;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Halaman Login -->
+  <div id="login">
+    <h2>LOGIN</h2>
+    <input type="password" id="password" placeholder="Masukkan password"><br>
+    <button onclick="checkLogin()">ENTER</button>
+  </div>
+
+  <!-- Halaman Konten -->
+  <div id="content" style="display:none;">
+    <div id="output"></div><span class="cursor"></span>
+  </div>
+
+  <script>
+    function checkLogin() {
+      const pass = document.getElementById("password").value;
+      if(pass.trim() !== "") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("content").style.display = "block";
+        typeWriter();
+      } else {
+        alert("Password salah!");
+      }
+    }
+
+    const text = `
+[ LOGIN SUKSES ]
+
+Lihat ini wahai pemerintah...
+Bangunlah, jangan butakan hati!
+
+Korupsi merajalela...
+DPR tidak mewakili rakyat...
+Rakyat kecil hanya bisa menunggu kabar baik
+yang tak kunjung datang.
+
+Tuntutan kami:
+1. Hukuman setimpal bagi koruptor
+2. Transparansi dalam pemerintahan
+3. Wakil rakyat yang benar-benar berpihak pada rakyat
+4. Keadilan sosial bagi seluruh rakyat Indonesia
+
+[ SUARA KECIL RAKYAT ]
+Dari Obry Untuk Negeri
+    `;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("output").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+  </script>
+</body>
+</html>
