@@ -5,15 +5,32 @@
   <title>Login - Suara Rakyat</title>
   <style>
     body {
-      background: #000;
-      color: #0f0;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: monospace;
-      padding: 20px;
+      background: linear-gradient(135deg, #8B0000, #000, #fff);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      overflow: hidden;
+      color: #0f0;
     }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     #login, #content {
-      max-width: 800px;
-      margin: auto;
+      max-width: 900px;
       text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.7);
+      border: 2px solid #0f0;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #0f0;
     }
     input {
       background: #000;
@@ -22,10 +39,11 @@
       padding: 8px;
       font-family: monospace;
       font-size: 16px;
-      width: 200px;
+      width: 250px;
     }
     button {
       background: #0f0;
+      color: #000;
       border: none;
       padding: 8px 16px;
       margin-top: 10px;
@@ -36,9 +54,10 @@
     #output {
       white-space: pre-wrap;
       text-align: left;
-      margin-top: 30px;
+      margin-top: 20px;
       font-size: 16px;
       line-height: 1.5;
+      color: #0f0;
     }
     .cursor {
       display: inline-block;
@@ -51,18 +70,39 @@
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
+    .glitch {
+      animation: glitch 0.2s infinite;
+    }
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      50% { text-shadow: -2px 0 red, 2px 0 blue; }
+      100% { text-shadow: 2px 0 red, -2px 0 blue; }
+    }
+    pre.ascii {
+      font-size: 12px;
+      color: #FFD700;
+      text-shadow: 0 0 5px #fff, 0 0 10px #FFD700;
+    }
   </style>
 </head>
 <body>
-  <!-- Halaman Login -->
+  <!-- Login Screen -->
   <div id="login">
-    <h2>LOGIN</h2>
+    <h2 class="glitch">[ TERMINAL LOGIN ]</h2>
     <input type="password" id="password" placeholder="Masukkan password"><br>
     <button onclick="checkLogin()">ENTER</button>
   </div>
 
-  <!-- Halaman Konten -->
+  <!-- Content -->
   <div id="content" style="display:none;">
+    <pre class="ascii">
+        ██████╗  █████╗ ██████╗ ██╗   ██╗██████╗  █████╗ 
+        ██╔══██╗██╔══██╗██╔══██╗██║   ██║██╔══██╗██╔══██╗
+        ██████╔╝███████║██████╔╝██║   ██║██████╔╝███████║
+        ██╔═══╝ ██╔══██║██╔═══╝ ██║   ██║██╔═══╝ ██╔══██║
+        ██║     ██║  ██║██║     ╚██████╔╝██║     ██║  ██║
+        ╚═╝     ╚═╝  ╚═╝╚═╝      ╚═════╝ ╚═╝     ╚═╝  ╚═╝
+    </pre>
     <div id="output"></div><span class="cursor"></span>
   </div>
 
@@ -72,31 +112,34 @@
       if(pass.trim() !== "") {
         document.getElementById("login").style.display = "none";
         document.getElementById("content").style.display = "block";
-        typeWriter();
+        setTimeout(()=>{ typeWriter(); }, 800);
       } else {
-        alert("Password salah!");
+        alert("ACCESS DENIED!");
       }
     }
 
     const text = `
-[ LOGIN SUKSES ]
+[ LOGIN BERHASIL ]
+!!! SISTEM DITEMBUS !!!
 
-Lihat ini wahai pemerintah...
-Bangunlah, jangan butakan hati!
+WAHAI PEMERINTAH, LIHAT INI!!!
+BANGSAT KORUPTOR = TIKUS PERUSAK NEGERI.
 
-Korupsi merajalela...
-DPR tidak mewakili rakyat...
-Rakyat kecil hanya bisa menunggu kabar baik
-yang tak kunjung datang.
+Rakyat kecil bersuara:
+- Kami muak!
+- Kami lapar keadilan!
+- Kami menunggu kejujuran!
 
-Tuntutan kami:
-1. Hukuman setimpal bagi koruptor
-2. Transparansi dalam pemerintahan
-3. Wakil rakyat yang benar-benar berpihak pada rakyat
+Tuntutan:
+1. Hukuman setimpal (bukan sandiwara)
+2. Transparansi total
+3. Reformasi DPR yang benar-benar wakil rakyat
 4. Keadilan sosial bagi seluruh rakyat Indonesia
 
 [ SUARA KECIL RAKYAT ]
-Dari Obry Untuk Negeri
+DARI OBRY UNTUK NEGERI
+
+(🐀 Tikus rakus akan kalah oleh rakyat bersatu)
     `;
 
     let i = 0;
@@ -104,7 +147,7 @@ Dari Obry Untuk Negeri
       if (i < text.length) {
         document.getElementById("output").innerHTML += text.charAt(i);
         i++;
-        setTimeout(typeWriter, 50);
+        setTimeout(typeWriter, 40);
       }
     }
   </script>
